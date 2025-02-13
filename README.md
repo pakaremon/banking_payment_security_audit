@@ -37,5 +37,36 @@ Rủi ro an toàn thông tin của mô hình banking payment hiện tại
 
 ## Giải pháp
 
+### Mô hình tổng thể
 ![alt text](images/2_security_arachitecture.png)
+
+### Mô hình chi tiết
+
+![alt text](images/3_security_arachitecture_detail.png)
+
+### Traffic flow
+
+![alt text](images/4_trafic_flow.png)
+
+## XÂY DỰNG CHÍNH SÁCH
+
+* IDS: Đặt 1 IDPS trước các public gateway để filter các traffic public đi từ bên ngoài vào mạng nội bộ, đồng thời giảm tải traffic cho router gateway. 
+
+* Firewall: Đặt firewall phía sau router để giám sát các traffic mạng đi đến mạng nội bộ. Dùng NGFW để filter cũng như phát hiện các cuộc tấn công dựa vào các signature base. Ngoài ra, NGFW còn có khả năng đọc vào payload của các gói tin, dựa vào đó chúng ta có thể ngăn chặn các cuộc tấn công liên quan đến tầng application.
+
+### Chính sách cho Firewall
+
+- 1: Tất cả các giao dịch không được ủy quyền đều sẽ bị chặn.
+- 2: Tất cả các cổng không cần thiết sẽ bị đóng.
+- 3: Địa chỉ IP nằm ngoài danh sách trắng sẽ bị chặn.
+- 4: Thời gian không hoạt động tối đa được cho phép là 15 phút.
+- 5: Các phiên bản phần mềm của firewall phải được cập nhật định kỳ.
+- 6: Được yêu cầu xác thực hai yếu tố để truy cập vào hệ thống quản lý firewall.
+- 7: Không cho phép quyền truy cập SSH từ internet công cộng.
+- 8: Ghi lại và lưu trữ tất cả các sự kiện truy cập.
+- 9: Tỉ lệ gói tin bị từ chối trên tổng số gói tin phải được giám sát.
+- 10: Đánh giá và kiểm tra cấu hình firewall ít nhất mỗi quý.
+
+
+
 
